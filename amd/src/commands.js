@@ -47,7 +47,7 @@ const handleAction = (editor) => {
  *
  * @returns {function} The registration function to call within the Plugin.add function.
  */
-export const getSetup = async () => {
+export const getSetup = async() => {
     const [startdemoButtonNameTitle, startdemoMenuItemNameTitle, buttonImage] =
         await Promise.all([
             getString("button_startdemo", component),

@@ -19,8 +19,8 @@ namespace tiny_fontstyles;
 use context;
 use editor_tiny\plugin;
 use editor_tiny\plugin_with_buttons;
-use editor_tiny\plugin_with_menuitems;
 use editor_tiny\plugin_with_configuration;
+use editor_tiny\plugin_with_menuitems;
 
 /**
  * Tiny Font Styles plugin for Moodle.
@@ -65,7 +65,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         context $context,
         array $options,
         array $fpoptions,
-        ?\editor_tiny\editor $editor = null
+        ?\editor_tiny\editor $editor = null,
     ): array {
         return [
             // Your values go here.

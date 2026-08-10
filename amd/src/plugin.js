@@ -30,7 +30,7 @@ import {getSetup as getCommandSetup} from "./commands";
 import * as Configuration from "./configuration";
 
 // Setup the tiny_fontstyles Plugin.
-export default new Promise(async (resolve) => {
+export default new Promise(async(resolve) => {
     // Note: The PluginManager.add function does not support asynchronous configuration.
     // Perform any asynchronous configuration here, and then call the PluginManager.add function.
     const [tinyMCE, pluginMetadata, setupCommands] = await Promise.all([
