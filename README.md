@@ -5,6 +5,7 @@ Re-enables rich text editing capabilities that were not enabled by Moodle by def
 - `forecolor`: Text color
 - `backcolor`: Background color
 - `fontsizeinput`: Font size
+- `fontfamily`: Font family
 
 That's literally it, nothing fancy.
 
