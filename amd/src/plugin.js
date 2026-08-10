@@ -41,7 +41,7 @@ const getPluginMetadata = _getPluginMetadata;
 
 // Setup the tiny_richtext Plugin.
 // eslint-disable-next-line no-async-promise-executor
-export default new Promise(async (resolve) => {
+export default new Promise(async(resolve) => {
     // Note: The PluginManager.add function does not support asynchronous configuration.
     // Perform any asynchronous configuration here, and then call the PluginManager.add function.
     const [tinyMCE, pluginMetadata, setupCommands] = await Promise.all([

@@ -29,7 +29,7 @@
  *
  * @returns {(editor: import('tinymce').Editor) => void} The registration function to call within the Plugin.add function.
  */
-export const getSetup = async () => {
+export const getSetup = async() => {
     return () => {
         return;
     };
