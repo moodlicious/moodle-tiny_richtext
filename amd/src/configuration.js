@@ -28,6 +28,7 @@ const getToolbarConfiguration = (instanceConfig) => {
     toolbar = addToolbarButtons(toolbar, "formatting", [
         "forecolor",
         "backcolor",
+        "fontsize",
     ]);
 
     return toolbar;
@@ -38,7 +39,7 @@ const getMenuConfiguration = (instanceConfig) => {
     menu = addMenubarItem(
         menu,
         "format",
-        ["forecolor", "backcolor"].join(" "),
+        ["forecolor", "backcolor", "fontsize"].join(" "),
         "codeformat",
     );
 
