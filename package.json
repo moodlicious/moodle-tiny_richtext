@@ -1,0 +1,8 @@
+{
+    "name": "fontstyles",
+    "version": "0.0.1",
+    "scripts": {},
+    "devDependencies": {
+        "tinymce": "8.2.2"
+    }
+}
