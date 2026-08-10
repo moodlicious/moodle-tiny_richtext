@@ -35,19 +35,12 @@ use editor_tiny\plugin_with_menuitems;
 class plugininfo extends plugin implements plugin_with_buttons, plugin_with_configuration, plugin_with_menuitems {
     #[\Override]
     public static function get_available_buttons(): array {
-        return [
-            'tiny_fontstyles/textcolour',
-        ];
+        return [];
     }
 
     #[\Override]
     public static function get_available_menuitems(): array {
-        return [
-            'tiny_fontstyles/plugin',
-            'tiny_fontstyles/color',
-            'tiny_fontstyles/color_foreground',
-            'tiny_fontstyles/color_background',
-        ];
+        return [];
     }
 
     #[\Override]
@@ -57,10 +50,6 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         array $fpoptions,
         ?editor $editor = null,
     ): array {
-        return [
-            // Your values go here.
-            // These will be mapped to a namespaced EditorOption in Tiny.
-            'myFirstProperty' => 'TO-DO Calculate your values here',
-        ];
+        return [];
     }
 }

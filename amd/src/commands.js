@@ -21,46 +21,6 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import {getButtonImage} from "editor_tiny/utils";
-import {component, buttons, menus, icons} from "./common";
-import {colors} from "./constants";
-
-/**
- * Utility function to apply temporary formatting.
- * @param {import("tinymce").Editor} editor
- * @param {import("tinymce").Formats.Format|import("tinymce").Formats.Format[]} formats
- * @param {Record<string, mixed>} params
- */
-const applyFormatting = (editor, formats, params) => {
-    editor.formatter.register(component, formats);
-    if (editor.formatter.canApply(component)) {
-        editor.formatter.apply(component, params);
-    }
-    editor.formatter.unregister(component);
-};
-
-/**
- * @param {import("tinymce").Editor} editor
- * @param {string} color
- */
-const applyTextColor = (editor, color) =>
-    applyFormatting(
-        editor,
-        {inline: "span", styles: {color: "%color"}},
-        {color},
-    );
-
-/**
- * @param {import("tinymce").Editor} editor
- * @param {string} color
- */
-const applyBackgroundColor = (editor, color) =>
-    applyFormatting(
-        editor,
-        {inline: "span", styles: {"background-color": "%color"}},
-        {color},
-    );
-
 /**
  * Get the setup function for the buttons.
  *
@@ -70,69 +30,7 @@ const applyBackgroundColor = (editor, color) =>
  * @returns {(editor: import('tinymce').Editor) => void} The registration function to call within the Plugin.add function.
  */
 export const getSetup = async () => {
-    const [pluginIcon, textColorIcon, backgroundColorIcon] = await Promise.all([
-        getButtonImage("icon", component),
-        getButtonImage("textcolor", component),
-        getButtonImage("backgroundcolor", component),
-    ]);
-
-    return (editor) => {
-        // Register the Moodle SVG as an icon suitable for use as a TinyMCE toolbar button.
-        editor.ui.registry.addIcon(icons.plugin, pluginIcon.html);
-        editor.ui.registry.addIcon(icons.textcolor, textColorIcon.html);
-        editor.ui.registry.addIcon(
-            icons.backgroundcolor,
-            backgroundColorIcon.html,
-        );
-
-        editor.ui.registry.addSplitButton(buttons.textcolor, {
-            icon: icons.textcolor,
-            tooltip: "Text colour",
-            onAction: () => applyTextColor(editor, "red"),
-            onItemAction: (api, value) => applyTextColor(editor, value),
-            fetch: (callback) =>
-                callback(
-                    colors.map((color) => ({
-                        type: "choiceitem",
-                        text: color.name,
-                        value: color.value,
-                    })),
-                ),
-        });
-        editor.ui.registry.addSplitButton(buttons.backgroundcolor, {
-            icon: icons.backgroundcolor,
-            tooltip: "Background colour",
-            onAction: () => applyBackgroundColor(editor, "blue"),
-            onItemAction: (api, value) => applyBackgroundColor(editor, value),
-            fetch: (callback) =>
-                callback(
-                    colors.map((color) => ({
-                        type: "choiceitem",
-                        text: color.name,
-                        value: color.value,
-                    })),
-                ),
-        });
-
-        editor.ui.registry.addNestedMenuItem(menus.textcolor, {
-            icon: icons.textcolor,
-            text: "text colour",
-            getSubmenuItems: () =>
-                colors.map((color) => ({
-                    type: "menuitem",
-                    text: color.name,
-                    onAction: () => applyTextColor(editor, color.value),
-                })),
-        });
-        editor.ui.registry.addNestedMenuItem(menus.backgroundcolor, {
-            icon: icons.backgroundcolor,
-            text: "background colour",
-            getSubmenuItems: () =>
-                colors.map((color) => ({
-                    type: "menuitem",
-                    text: color.name,
-                    onAction: () => applyBackgroundColor(editor, color.value),
-                })),
-        });
+    return () => {
+        return;
     };
 };

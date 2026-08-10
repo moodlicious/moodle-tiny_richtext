@@ -21,15 +21,13 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import {buttons, menus} from "./common";
-
 import {addMenubarItem, addToolbarButtons} from "editor_tiny/utils";
 
 const getToolbarConfiguration = (instanceConfig) => {
     let toolbar = instanceConfig.toolbar;
     toolbar = addToolbarButtons(toolbar, "formatting", [
-        buttons.textcolor,
-        buttons.backgroundcolor,
+        "forecolor",
+        "backcolor",
     ]);
 
     return toolbar;
@@ -40,7 +38,7 @@ const getMenuConfiguration = (instanceConfig) => {
     menu = addMenubarItem(
         menu,
         "format",
-        [menus.textcolor, menus.backgroundcolor].join(" "),
+        ["forecolor", "backcolor"].join(" "),
         "codeformat",
     );
 
