@@ -16,7 +16,7 @@
 /**
  * Tiny tiny_fontstyles for Moodle.
  *
- * @module      tiny_fontstyles/plugin
+ * @module      tiny_fontstyles/configuration
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
