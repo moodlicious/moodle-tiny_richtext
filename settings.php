@@ -17,11 +17,16 @@
 /**
  * Plugin administration pages are defined here.
  *
+ * @var admin_root $ADMIN
+ * @var bool $hassiteconfig
+ *
  * @package     tiny_fontstyles
  * @category    admin
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+use core\lang_string;
 
 defined('MOODLE_INTERNAL') || die();
 

@@ -14,7 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+declare(strict_types=1);
+
 namespace tiny_fontstyles\privacy;
+
+use core_privacy\local\metadata\null_provider;
 
 /**
  * Privacy API implementation for the Font Styles plugin.
@@ -24,11 +28,9 @@ namespace tiny_fontstyles\privacy;
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements \core_privacy\local\metadata\null_provider {
+class provider implements null_provider {
     /**
      * Returns stringid of a text explaining that this plugin stores no personal data.
-     *
-     * @return string
      */
     public static function get_reason(): string {
         return 'privacy:metadata';

@@ -14,9 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+declare(strict_types=1);
+
 namespace tiny_fontstyles;
 
-use context;
+use core\context;
+use editor_tiny\editor;
 use editor_tiny\plugin;
 use editor_tiny\plugin_with_buttons;
 use editor_tiny\plugin_with_configuration;
@@ -30,42 +33,26 @@ use editor_tiny\plugin_with_menuitems;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class plugininfo extends plugin implements plugin_with_buttons, plugin_with_configuration, plugin_with_menuitems {
-    /**
-     * Get a list of the buttons provided by this plugin.
-     *
-     * @return array
-     */
+    #[\Override]
     public static function get_available_buttons(): array {
         return [
             'tiny_fontstyles/plugin',
         ];
     }
 
-    /**
-     * Get a list of the menu items provided by this plugin.
-     *
-     * @return array
-     */
+    #[\Override]
     public static function get_available_menuitems(): array {
         return [
             'tiny_fontstyles/plugin',
         ];
     }
 
-    /**
-     * Allows to pass to pass options from the PHP to the JavaScript API of the plugin.
-     *
-     * @param context $context
-     * @param array $options
-     * @param array $fpoptions
-     * @param ?\editor_tiny\editor $editor = null
-     * @return array
-     */
+    #[\Override]
     public static function get_plugin_configuration_for_context(
         context $context,
         array $options,
         array $fpoptions,
-        ?\editor_tiny\editor $editor = null,
+        ?editor $editor = null,
     ): array {
         return [
             // Your values go here.

@@ -17,11 +17,15 @@
 /**
  * Plugin strings are defined here.
  *
+ * @var array<string, string> $string
+ *
  * @package     tiny_fontstyles
  * @category    string
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+declare(strict_types=1);
 
 defined('MOODLE_INTERNAL') || die();
 
