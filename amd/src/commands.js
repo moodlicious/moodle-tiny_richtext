@@ -25,13 +25,40 @@ import {getButtonImage} from "editor_tiny/utils";
 import {component, buttons, menus, icons} from "./common";
 
 /**
- * Handle the action for your plugin.
- * @param {TinyMCE.editor} editor The tinyMCE editor instance.
+ * Utility function to apply temporary formatting.
+ * @param {import("tinymce").Editor} editor
+ * @param {import("tinymce").Formats.Format|import("tinymce").Formats.Format[]} formats
+ * @param {Record<string, mixed>} params
  */
-const handleAction = (editor) => {
-    // TO-DO Handle the action.
-    window.console.log(editor);
+const applyFormatting = (editor, formats, params) => {
+    editor.formatter.register(component, formats);
+    if (editor.formatter.canApply(component)) {
+        editor.formatter.apply(component, params);
+    }
+    editor.formatter.unregister(component);
 };
+
+/**
+ * @param {import("tinymce").Editor} editor
+ * @param {string} color
+ */
+const applyTextColor = (editor, color) =>
+    applyFormatting(
+        editor,
+        {inline: "span", styles: {color: "%color"}},
+        {color},
+    );
+
+/**
+ * @param {import("tinymce").Editor} editor
+ * @param {string} color
+ */
+const applyBackgroundColor = (editor, color) =>
+    applyFormatting(
+        editor,
+        {inline: "span", styles: {"background-color": "%color"}},
+        {color},
+    );
 
 /**
  * Get the setup function for the buttons.
@@ -60,23 +87,23 @@ export const getSetup = async () => {
         editor.ui.registry.addButton(buttons.textcolor, {
             icon: icons.textcolor,
             tooltip: "Text colour",
-            onAction: () => handleAction(editor),
+            onAction: () => applyTextColor(editor, "red"),
         });
         editor.ui.registry.addButton(buttons.backgroundcolor, {
             icon: icons.backgroundcolor,
             tooltip: "Background colour",
-            onAction: () => handleAction(editor),
+            onAction: () => applyBackgroundColor(editor, "blue"),
         });
 
         editor.ui.registry.addMenuItem(menus.textcolor, {
             icon: icons.textcolor,
             text: "Text Colour",
-            onAction: () => handleAction(editor),
+            onAction: () => applyTextColor(editor, "red"),
         });
         editor.ui.registry.addMenuItem(menus.backgroundcolor, {
             icon: icons.backgroundcolor,
             text: "Background Colour",
-            onAction: () => handleAction(editor),
+            onAction: () => applyBackgroundColor(editor, "blue"),
         });
     };
 };
