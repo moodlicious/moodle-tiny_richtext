@@ -6,7 +6,7 @@ Adds three TinyMCE core formatting controls:
 
 - `forecolor` - Text color
 - `backcolor` - Background color
-- `fontsize` - Font size
+- `fontsizeinput` - Font size
 
 That's literally it, nothing fancy.
 
