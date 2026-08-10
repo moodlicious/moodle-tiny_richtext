@@ -19,7 +19,7 @@
  *
  * @var array<string, string> $string
  *
- * @package     tiny_fontstyles
+ * @package     tiny_richtext
  * @category    string
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,7 +29,5 @@ declare(strict_types=1);
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['button_startdemo'] = 'Start demo';
-$string['menuitem_startdemo'] = 'Start the demo';
-$string['pluginname'] = 'Font Styles';
-$string['privacy:metadata'] = 'Font Styles does not store any personal data';
+$string['pluginname'] = 'Rich Text';
+$string['privacy:metadata'] = 'Rich Text does not store any personal data';

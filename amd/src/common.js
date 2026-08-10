@@ -14,14 +14,14 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Common values helper for the Moodle tiny_fontstyles plugin.
+ * Common values helper for the Moodle tiny_richtext plugin.
  *
- * @module      tiny_fontstyles/common
+ * @module      tiny_richtext/common
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-export const component = "tiny_fontstyles";
+export const component = "tiny_richtext";
 export const pluginName = `${component}/plugin`;
 export const icon = component;
 export const icons = {

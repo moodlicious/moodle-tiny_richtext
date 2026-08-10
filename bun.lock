@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "fontstyles",
+      "name": "richtext",
       "devDependencies": {
         "tinymce": "8.2.2",
       },

@@ -14,9 +14,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Commands helper for the Moodle tiny_fontstyles plugin.
+ * Commands helper for the Moodle tiny_richtext plugin.
  *
- * @module      tiny_fontstyles/commands
+ * @module      tiny_richtext/commands
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

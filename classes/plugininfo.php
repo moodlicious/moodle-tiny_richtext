@@ -16,7 +16,7 @@
 
 declare(strict_types=1);
 
-namespace tiny_fontstyles;
+namespace tiny_richtext;
 
 use core\context;
 use editor_tiny\editor;
@@ -26,9 +26,9 @@ use editor_tiny\plugin_with_configuration;
 use editor_tiny\plugin_with_menuitems;
 
 /**
- * Tiny Font Styles plugin for Moodle.
+ * Tiny Rich Text plugin for Moodle.
  *
- * @package     tiny_fontstyles
+ * @package     tiny_richtext
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

@@ -20,7 +20,7 @@
  * @var admin_root $ADMIN
  * @var bool $hassiteconfig
  *
- * @package     tiny_fontstyles
+ * @package     tiny_richtext
  * @category    admin
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -31,7 +31,7 @@ use core\lang_string;
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $settings = new admin_settingpage('tiny_fontstyles_settings', new lang_string('pluginname', 'tiny_fontstyles'));
+    $settings = new admin_settingpage('tiny_richtext_settings', new lang_string('pluginname', 'tiny_richtext'));
 
     // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
     if ($ADMIN->fulltree) {

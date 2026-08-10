@@ -14,9 +14,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Tiny tiny_fontstyles for Moodle.
+ * Tiny tiny_richtext for Moodle.
  *
- * @module      tiny_fontstyles/plugin
+ * @module      tiny_richtext/plugin
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -39,7 +39,7 @@ const getTinyMCE = _getTinyMCE;
  */
 const getPluginMetadata = _getPluginMetadata;
 
-// Setup the tiny_fontstyles Plugin.
+// Setup the tiny_richtext Plugin.
 // eslint-disable-next-line no-async-promise-executor
 export default new Promise(async (resolve) => {
     // Note: The PluginManager.add function does not support asynchronous configuration.

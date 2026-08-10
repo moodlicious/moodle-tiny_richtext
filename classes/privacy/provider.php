@@ -16,14 +16,14 @@
 
 declare(strict_types=1);
 
-namespace tiny_fontstyles\privacy;
+namespace tiny_richtext\privacy;
 
 use core_privacy\local\metadata\null_provider;
 
 /**
- * Privacy API implementation for the Font Styles plugin.
+ * Privacy API implementation for the Rich Text plugin.
  *
- * @package     tiny_fontstyles
+ * @package     tiny_richtext
  * @category    privacy
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

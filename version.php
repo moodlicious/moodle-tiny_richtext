@@ -17,13 +17,13 @@
 /**
  * Plugin version and other meta-data are defined here.
  *
- * @package     tiny_fontstyles
+ * @package     tiny_richtext
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'tiny_fontstyles';
+$plugin->component = 'tiny_richtext';
 $plugin->release = '0.0.1';
 $plugin->version = 2026081000;
