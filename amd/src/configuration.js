@@ -21,20 +21,28 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import {startdemoButtonName, startdemoMenuItemName} from "./common";
+import {buttons, menus} from "./common";
 
 import {addMenubarItem, addToolbarButtons} from "editor_tiny/utils";
 
 const getToolbarConfiguration = (instanceConfig) => {
     let toolbar = instanceConfig.toolbar;
-    toolbar = addToolbarButtons(toolbar, "content", [startdemoButtonName]);
+    toolbar = addToolbarButtons(toolbar, "formatting", [
+        buttons.textcolor,
+        buttons.backgroundcolor,
+    ]);
 
     return toolbar;
 };
 
 const getMenuConfiguration = (instanceConfig) => {
     let menu = instanceConfig.menu;
-    menu = addMenubarItem(menu, "file", [startdemoMenuItemName].join(" "));
+    menu = addMenubarItem(
+        menu,
+        "format",
+        [menus.textcolor, menus.backgroundcolor].join(" "),
+        "codeformat",
+    );
 
     return menu;
 };

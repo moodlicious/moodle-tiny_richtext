@@ -22,13 +22,7 @@
  */
 
 import {getButtonImage} from "editor_tiny/utils";
-import {get_string as getString} from "core/str";
-import {
-    component,
-    startdemoButtonName,
-    startdemoMenuItemName,
-    icon,
-} from "./common";
+import {component, buttons, menus, icons} from "./common";
 
 /**
  * Handle the action for your plugin.
@@ -48,29 +42,40 @@ const handleAction = (editor) => {
  * @returns {(editor: import('tinymce').Editor) => void} The registration function to call within the Plugin.add function.
  */
 export const getSetup = async () => {
-    const [startdemoButtonNameTitle, startdemoMenuItemNameTitle, buttonImage] =
-        await Promise.all([
-            getString("button_startdemo", component),
-            getString("menuitem_startdemo", component),
-            getButtonImage("icon", component),
-        ]);
+    const [pluginIcon, textColorIcon, backgroundColorIcon] = await Promise.all([
+        getButtonImage("icon", component),
+        getButtonImage("textcolor", component),
+        getButtonImage("backgroundcolor", component),
+    ]);
 
     return (editor) => {
         // Register the Moodle SVG as an icon suitable for use as a TinyMCE toolbar button.
-        editor.ui.registry.addIcon(icon, buttonImage.html);
+        editor.ui.registry.addIcon(icons.plugin, pluginIcon.html);
+        editor.ui.registry.addIcon(icons.textcolor, textColorIcon.html);
+        editor.ui.registry.addIcon(
+            icons.backgroundcolor,
+            backgroundColorIcon.html,
+        );
 
-        // Register the startdemo Toolbar Button.
-        editor.ui.registry.addButton(startdemoButtonName, {
-            icon,
-            tooltip: startdemoButtonNameTitle,
+        editor.ui.registry.addButton(buttons.textcolor, {
+            icon: icons.textcolor,
+            tooltip: "Text colour",
+            onAction: () => handleAction(editor),
+        });
+        editor.ui.registry.addButton(buttons.backgroundcolor, {
+            icon: icons.backgroundcolor,
+            tooltip: "Background colour",
             onAction: () => handleAction(editor),
         });
 
-        // Add the startdemo Menu Item.
-        // This allows it to be added to a standard menu, or a context menu.
-        editor.ui.registry.addMenuItem(startdemoMenuItemName, {
-            icon,
-            text: startdemoMenuItemNameTitle,
+        editor.ui.registry.addMenuItem(menus.textcolor, {
+            icon: icons.textcolor,
+            text: "Text Colour",
+            onAction: () => handleAction(editor),
+        });
+        editor.ui.registry.addMenuItem(menus.backgroundcolor, {
+            icon: icons.backgroundcolor,
+            text: "Background Colour",
             onAction: () => handleAction(editor),
         });
     };

@@ -36,7 +36,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
     #[\Override]
     public static function get_available_buttons(): array {
         return [
-            'tiny_fontstyles/plugin',
+            'tiny_fontstyles/textcolour',
         ];
     }
 
@@ -44,6 +44,9 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
     public static function get_available_menuitems(): array {
         return [
             'tiny_fontstyles/plugin',
+            'tiny_fontstyles/color',
+            'tiny_fontstyles/color_foreground',
+            'tiny_fontstyles/color_background',
         ];
     }
 
