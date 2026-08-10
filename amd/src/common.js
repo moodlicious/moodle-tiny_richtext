@@ -21,12 +21,8 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-const component = "tiny_fontstyles";
-
-export default {
-    component,
-    pluginName: `${component}/plugin`,
-    icon: component,
-    startdemoButtonName: `${component}_startdemo`,
-    startdemoMenuItemName: `${component}_startdemo`,
-};
+export const component = "tiny_fontstyles";
+export const pluginName = `${component}/plugin`;
+export const icon = component;
+export const startdemoButtonName = `${component}_startdemo`;
+export const startdemoMenuItemName = `${component}_startdemo`;

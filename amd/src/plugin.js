@@ -21,13 +21,23 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import {getTinyMCE} from "editor_tiny/loader";
-import {getPluginMetadata} from "editor_tiny/utils";
+import {getTinyMCE as _getTinyMCE} from "editor_tiny/loader";
+import {getPluginMetadata as _getPluginMetadata} from "editor_tiny/utils";
 
 import {component, pluginName} from "./common";
 import {register as registerOptions} from "./options";
 import {getSetup as getCommandSetup} from "./commands";
 import * as Configuration from "./configuration";
+
+/**
+ * @type {() => (Promise<import('tinymce').TinyMCE>)}
+ */
+const getTinyMCE = _getTinyMCE;
+
+/**
+ * @type {() => Promise<import('tinymce'.Plugin)>}
+ */
+const getPluginMetadata = _getPluginMetadata;
 
 // Setup the tiny_fontstyles Plugin.
 // eslint-disable-next-line no-async-promise-executor

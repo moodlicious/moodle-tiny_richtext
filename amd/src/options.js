@@ -30,7 +30,7 @@ const myFirstPropertyName = getPluginOptionName(pluginName, "myFirstProperty");
 /**
  * Options registration function.
  *
- * @param {tinyMCE} editor
+ * @param {import("tinymce").TinyMCE} editor
  */
 export const register = (editor) => {
     const registerOption = editor.options.register;
@@ -45,7 +45,7 @@ export const register = (editor) => {
 /**
  * Fetch the myFirstProperty value for this editor instance.
  *
- * @param {tinyMCE} editor The editor instance to fetch the value for
+ * @param {import("tinymce").TinyMCE} editor The editor instance to fetch the value for
  * @returns {object} The value of the myFirstProperty option
  */
 export const getMyFirstProperty = (editor) =>

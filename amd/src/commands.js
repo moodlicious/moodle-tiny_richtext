@@ -45,9 +45,9 @@ const handleAction = (editor) => {
  * This is performed in an async function which ultimately returns the registration function as the
  * Tiny.AddOnManager.Add() function does not support async functions.
  *
- * @returns {function} The registration function to call within the Plugin.add function.
+ * @returns {(editor: import('tinymce').Editor) => void} The registration function to call within the Plugin.add function.
  */
-export const getSetup = async() => {
+export const getSetup = async () => {
     const [startdemoButtonNameTitle, startdemoMenuItemNameTitle, buttonImage] =
         await Promise.all([
             getString("button_startdemo", component),
