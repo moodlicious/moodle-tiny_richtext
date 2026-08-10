@@ -23,6 +23,7 @@
 
 import {getButtonImage} from "editor_tiny/utils";
 import {component, buttons, menus, icons} from "./common";
+import {colors} from "./constants";
 
 /**
  * Utility function to apply temporary formatting.
@@ -84,26 +85,54 @@ export const getSetup = async () => {
             backgroundColorIcon.html,
         );
 
-        editor.ui.registry.addButton(buttons.textcolor, {
+        editor.ui.registry.addSplitButton(buttons.textcolor, {
             icon: icons.textcolor,
             tooltip: "Text colour",
             onAction: () => applyTextColor(editor, "red"),
+            onItemAction: (api, value) => applyTextColor(editor, value),
+            fetch: (callback) =>
+                callback(
+                    colors.map((color) => ({
+                        type: "choiceitem",
+                        text: color.name,
+                        value: color.value,
+                    })),
+                ),
         });
-        editor.ui.registry.addButton(buttons.backgroundcolor, {
+        editor.ui.registry.addSplitButton(buttons.backgroundcolor, {
             icon: icons.backgroundcolor,
             tooltip: "Background colour",
             onAction: () => applyBackgroundColor(editor, "blue"),
+            onItemAction: (api, value) => applyBackgroundColor(editor, value),
+            fetch: (callback) =>
+                callback(
+                    colors.map((color) => ({
+                        type: "choiceitem",
+                        text: color.name,
+                        value: color.value,
+                    })),
+                ),
         });
 
-        editor.ui.registry.addMenuItem(menus.textcolor, {
+        editor.ui.registry.addNestedMenuItem(menus.textcolor, {
             icon: icons.textcolor,
-            text: "Text Colour",
-            onAction: () => applyTextColor(editor, "red"),
+            text: "text colour",
+            getSubmenuItems: () =>
+                colors.map((color) => ({
+                    type: "menuitem",
+                    text: color.name,
+                    onAction: () => applyTextColor(editor, color.value),
+                })),
         });
-        editor.ui.registry.addMenuItem(menus.backgroundcolor, {
+        editor.ui.registry.addNestedMenuItem(menus.backgroundcolor, {
             icon: icons.backgroundcolor,
-            text: "Background Colour",
-            onAction: () => applyBackgroundColor(editor, "blue"),
+            text: "background colour",
+            getSubmenuItems: () =>
+                colors.map((color) => ({
+                    type: "menuitem",
+                    text: color.name,
+                    onAction: () => applyBackgroundColor(editor, color.value),
+                })),
         });
     };
 };
