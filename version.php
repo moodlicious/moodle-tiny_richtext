@@ -27,3 +27,5 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'tiny_richtext';
 $plugin->release = '0.0.1';
 $plugin->version = 2026081000;
+$plugin->maturity = MATURITY_ALPHA;
+$plugin->supported = [405, 502];
