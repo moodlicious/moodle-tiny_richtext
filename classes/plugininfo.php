@@ -40,7 +40,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
      * Retrives list of tiny core plugins enabled by this plugin.
      * @return array<string, ('toolbar'|'menubar')[]>
      */
-    public static function get_available_tiny_core_identifiers(): array {
+    public static function get_available_tiny_plugins(): array {
         return [
             'forecolor' => ['toolbar', 'menubar'],
             'backcolor' => ['toolbar', 'menubar'],
@@ -62,10 +62,10 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
     }
 
     /**
-     * Retruns the configuration key for a specific identifier/area pair.
+     * Retruns the configuration key for a specific plugin/area pair.
      */
-    public static function get_identifier_area_config_key(string $identifier, string $area): string {
-        return "enable_{$identifier}_{$area}";
+    public static function get_tiny_plugin_area_config_key(string $plugin, string $area): string {
+        return "enable_{$plugin}_{$area}";
     }
 
     #[\Override]
@@ -76,20 +76,20 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         ?editor $editor = null,
     ): array {
         $component = self::COMPONENT_NAME;
-        $identifiers = self::get_available_tiny_core_identifiers();
+        $plugins = self::get_available_tiny_plugins();
         $enabledareas = [
             'none' => [],
         ];
 
-        foreach ($identifiers as $identifier => $areas) {
+        foreach ($plugins as $plugin => $areas) {
             foreach ($areas as $area) {
-                $enabled = (bool) get_config($component, self::get_identifier_area_config_key($identifier, $area));
+                $enabled = (bool) get_config($component, self::get_tiny_plugin_area_config_key($plugin, $area));
                 if (!$enabled) {
                     continue;
                 }
 
                 $enabledareas[$area] ??= [];
-                $enabledareas[$area][] = $identifier;
+                $enabledareas[$area][] = $plugin;
             }
         }
 

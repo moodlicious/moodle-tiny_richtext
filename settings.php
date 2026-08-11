@@ -42,25 +42,25 @@ if ($hassiteconfig) {
             (int) true => new lang_string('yes'),
         ];
 
-        $identifiers = plugininfo::get_available_tiny_core_identifiers();
+        $plugins = plugininfo::get_available_tiny_plugins();
 
-        foreach ($identifiers as $identifier => $areas) {
-            $identifierstring = new lang_string("tiny:identifier:$identifier", $component);
+        foreach ($plugins as $plugin => $areas) {
+            $pluginstring = new lang_string("tiny:plugin:$plugin", $component);
             $settings->add(
                 new admin_setting_heading(
-                    "$component/$identifier",
-                    $identifierstring,
+                    "$component/$plugin",
+                    $pluginstring,
                     '',
                 ),
             );
 
             foreach ($areas as $area) {
                 $areastring = new lang_string("tiny:area:$area", $component);
-                $configkey = plugininfo::get_identifier_area_config_key($identifier, $area);
+                $configkey = plugininfo::get_tiny_plugin_area_config_key($plugin, $area);
                 $setting = new admin_setting_configselect(
                     "$component/$configkey",
-                    new lang_string('settings:showidentifierinarea', $component, [
-                        'identifier' => $identifierstring,
+                    new lang_string('settings:showplugininarea', $component, [
+                        'plugin' => $pluginstring,
                         'area' => $areastring,
                     ]),
                     '',
