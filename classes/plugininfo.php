@@ -33,6 +33,22 @@ use editor_tiny\plugin_with_menuitems;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class plugininfo extends plugin implements plugin_with_buttons, plugin_with_configuration, plugin_with_menuitems {
+    /** @var string */
+    public const COMPONENT_NAME = 'tiny_richtext';
+
+    /**
+     * Retrives list of tiny core plugins enabled by this plugin.
+     * @return array<string, ('toolbar'|'menubar')[]>
+     */
+    public static function get_available_tiny_core_identifiers(): array {
+        return [
+            'forecolor' => ['toolbar', 'menubar'],
+            'backcolor' => ['toolbar', 'menubar'],
+            'fontsizeinput' => ['toolbar', 'menubar'],
+            'fontfamily' => ['toolbar', 'menubar'],
+        ];
+    }
+
     #[\Override]
     public static function get_available_buttons(): array {
         return [];
@@ -43,6 +59,13 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         return [];
     }
 
+    /**
+     * Retruns the configuration key for a specific identifier/area pair.
+     */
+    public static function get_identifier_area_config_key(string $identifier, string $area): string {
+        return "enable_{$identifier}_{$area}";
+    }
+
     #[\Override]
     public static function get_plugin_configuration_for_context(
         context $context,
@@ -50,6 +73,26 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         array $fpoptions,
         ?editor $editor = null,
     ): array {
-        return [];
+        $component = self::COMPONENT_NAME;
+        $identifiers = self::get_available_tiny_core_identifiers();
+        $enabledareas = [
+            'none' => [],
+        ];
+
+        foreach ($identifiers as $identifier => $areas) {
+            foreach ($areas as $area) {
+                $enabled = (bool) get_config($component, self::get_identifier_area_config_key($identifier, $area));
+                if (!$enabled) {
+                    continue;
+                }
+
+                $enabledareas[$area] ??= [];
+                $enabledareas[$area][] = $identifier;
+            }
+        }
+
+        return [
+            'enabledareas' => $enabledareas,
+        ];
     }
 }

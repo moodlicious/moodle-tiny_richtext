@@ -27,10 +27,11 @@
  */
 
 use core\lang_string;
+use tiny_richtext\plugininfo;
 
 defined('MOODLE_INTERNAL') || die();
 
-$component = 'tiny_richtext';
+$component = plugininfo::COMPONENT_NAME;
 
 if ($hassiteconfig) {
     $settings = new admin_settingpage('tiny_richtext_settings', new lang_string('pluginname', $component));
@@ -41,12 +42,7 @@ if ($hassiteconfig) {
             (int) true => new lang_string('yes'),
         ];
 
-        $identifiers = [
-            'forecolor' => ['toolbar', 'menubar'],
-            'backcolor' => ['toolbar', 'menubar'],
-            'fontsizeinput' => ['toolbar', 'menubar'],
-            'fontfamily' => ['toolbar', 'menubar'],
-        ];
+        $identifiers = plugininfo::get_available_tiny_core_identifiers();
 
         foreach ($identifiers as $identifier => $areas) {
             $identifierstring = new lang_string("tiny:identifier:$identifier", $component);
@@ -60,8 +56,9 @@ if ($hassiteconfig) {
 
             foreach ($areas as $area) {
                 $areastring = new lang_string("tiny:area:$area", $component);
+                $configkey = plugininfo::get_identifier_area_config_key($identifier, $area);
                 $setting = new admin_setting_configselect(
-                    "$component/enable_{$identifier}_{$area}",
+                    "$component/$configkey",
                     new lang_string('settings:showidentifierinarea', $component, [
                         'identifier' => $identifierstring,
                         'area' => $areastring,

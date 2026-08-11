@@ -22,34 +22,35 @@
  */
 
 import {addMenubarItem, addToolbarButtons} from "editor_tiny/utils";
+import {
+    getInitialPluginConfiguration,
+    getPluginOptionName,
+} from "editor_tiny/options";
+import {pluginName} from "./common";
 
-const getToolbarConfiguration = (instanceConfig) => {
+const getToolbarConfiguration = (instanceConfig, items) => {
     let toolbar = instanceConfig.toolbar;
-    toolbar = addToolbarButtons(toolbar, "formatting", [
-        "forecolor",
-        "backcolor",
-        "fontsizeinput",
-        "fontfamily",
-    ]);
+    toolbar = addToolbarButtons(toolbar, "formatting", [...items]);
 
     return toolbar;
 };
 
-const getMenuConfiguration = (instanceConfig) => {
+const getMenuConfiguration = (instanceConfig, items) => {
     let menu = instanceConfig.menu;
-    menu = addMenubarItem(
-        menu,
-        "format",
-        ["forecolor", "backcolor", "fontsizeinput", "fontfamily"].join(" "),
-        "codeformat",
-    );
+    menu = addMenubarItem(menu, "format", [...items].join(" "), "codeformat");
 
     return menu;
 };
 
-export const configure = (instanceConfig) => {
+export const configure = (instanceConfig, options) => {
+    const pluginOptions = getInitialPluginConfiguration(options);
+    const enabledAreas =
+        pluginOptions[getPluginOptionName(pluginName, "enabledareas")];
+    const enabledToolbars = enabledAreas.toolbar ?? [];
+    const enabledMenubars = enabledAreas.menubar ?? [];
+
     return {
-        toolbar: getToolbarConfiguration(instanceConfig),
-        menu: getMenuConfiguration(instanceConfig),
+        toolbar: getToolbarConfiguration(instanceConfig, enabledToolbars),
+        menu: getMenuConfiguration(instanceConfig, enabledMenubars),
     };
 };
