@@ -31,3 +31,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Rich Text';
 $string['privacy:metadata'] = 'Rich Text does not store any personal data';
+$string['settings:showidentifierinarea'] = 'Show {$a->identifier} in {$a->area}';
+$string['tiny:area:menubar'] = 'Menubar';
+$string['tiny:area:toolbar'] = 'Toolbar';
+$string['tiny:identifier:backcolor'] = 'Background Colour';
+$string['tiny:identifier:fontfamily'] = 'Font Family';
+$string['tiny:identifier:fontsizeinput'] = 'Font Size';
+$string['tiny:identifier:forecolor'] = 'Font Colour';

@@ -30,11 +30,48 @@ use core\lang_string;
 
 defined('MOODLE_INTERNAL') || die();
 
-if ($hassiteconfig) {
-    $settings = new admin_settingpage('tiny_richtext_settings', new lang_string('pluginname', 'tiny_richtext'));
+$component = 'tiny_richtext';
 
-    // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
+if ($hassiteconfig) {
+    $settings = new admin_settingpage('tiny_richtext_settings', new lang_string('pluginname', $component));
+
     if ($ADMIN->fulltree) {
-        // TO-DO: Define actual plugin settings page and add it to the tree - {@link https://docs.moodle.org/dev/Admin_settings}.
+        $yesnochoices = fn() => [
+            (int) false => new lang_string('no'),
+            (int) true => new lang_string('yes'),
+        ];
+
+        $identifiers = [
+            'forecolor' => ['toolbar', 'menubar'],
+            'backcolor' => ['toolbar', 'menubar'],
+            'fontsizeinput' => ['toolbar', 'menubar'],
+            'fontfamily' => ['toolbar', 'menubar'],
+        ];
+
+        foreach ($identifiers as $identifier => $areas) {
+            $identifierstring = new lang_string("tiny:identifier:$identifier", $component);
+            $settings->add(
+                new admin_setting_heading(
+                    "$component/$identifier",
+                    $identifierstring,
+                    '',
+                ),
+            );
+
+            foreach ($areas as $area) {
+                $areastring = new lang_string("tiny:area:$area", $component);
+                $setting = new admin_setting_configselect(
+                    "$component/enable_{$identifier}_{$area}",
+                    new lang_string('settings:showidentifierinarea', $component, [
+                        'identifier' => $identifierstring,
+                        'area' => $areastring,
+                    ]),
+                    '',
+                    (int) false,
+                    $yesnochoices,
+                );
+                $settings->add($setting);
+            }
+        }
     }
 }
