@@ -37,7 +37,7 @@ if ($hassiteconfig) {
     $settings = new admin_settingpage('tiny_richtext_settings', new lang_string('pluginname', $component));
 
     if ($ADMIN->fulltree) {
-        $yesnochoices = fn() => [
+        $yesnochoices = fn(): array => [
             (int) false => new lang_string('no'),
             (int) true => new lang_string('yes'),
         ];
