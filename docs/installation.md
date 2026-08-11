@@ -11,4 +11,8 @@
 1. Download the release zip and extract it to your Moodle `lib/editor/tiny/plugins/` directory. The folder must be named `richtext`.
 2. Visit Site admin > Notifications to install.
 
-No settings page. The plugin works as soon as it is installed.
+## Configure
+
+Controls are disabled by default. Enable them on the plugin's settings page:
+
+Site admin > Plugins > Text editors > TinyMCE > Rich Text.

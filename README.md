@@ -4,10 +4,12 @@ Re-enables rich text editing capabilities that were not enabled by Moodle by def
 
 - `forecolor`: Text color
 - `backcolor`: Background color
-- `fontsizeinput`: Font size
+- `fontsize`: Font size (predefined)
+- `fontsizeinput`: Font size (input)
 - `fontfamily`: Font family
+- `charmap`: Custom characters
 
-That's literally it, nothing fancy.
+Each control can be enabled in the toolbar and/or the Format menu on the plugin's settings page.
 
 ## Pitfalls
 

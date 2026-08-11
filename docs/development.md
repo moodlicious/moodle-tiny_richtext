@@ -34,15 +34,15 @@ GitHub Actions (`.github/workflows/moodle-ci.yaml`):
 ```
 amd/src/
   common.js         - Component name and constants
-  configuration.js  - Toolbar and menu configuration
+  configuration.js  - Toolbar and menu configuration (reads enabled areas)
   plugin.js         - Plugin registration
   commands.js       - Command setup (empty)
   options.js        - Options registration (empty)
 classes/
-  plugininfo.php    - Tiny plugin API (buttons, menu items, configuration)
+  plugininfo.php    - Tiny plugin API; declares available controls + areas, builds enabledareas config
   privacy/provider.php - Null privacy provider (no personal data stored)
 lang/en/
   tiny_richtext.php - Language strings
 version.php         - Version and release metadata
-settings.php        - Admin settings page (currently empty)
+settings.php        - Admin settings page (per-control toolbar/menu toggles)
 ```
