@@ -36,5 +36,6 @@ $string['tiny:area:menubar'] = 'Menubar';
 $string['tiny:area:toolbar'] = 'Toolbar';
 $string['tiny:identifier:backcolor'] = 'Background Colour';
 $string['tiny:identifier:fontfamily'] = 'Font Family';
-$string['tiny:identifier:fontsizeinput'] = 'Font Size';
+$string['tiny:identifier:fontsize'] = 'Font Size (predefined)';
+$string['tiny:identifier:fontsizeinput'] = 'Font Size (input)';
 $string['tiny:identifier:forecolor'] = 'Font Colour';

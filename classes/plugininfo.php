@@ -44,7 +44,8 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         return [
             'forecolor' => ['toolbar', 'menubar'],
             'backcolor' => ['toolbar', 'menubar'],
-            'fontsizeinput' => ['toolbar', 'menubar'],
+            'fontsize' => ['toolbar', 'menubar'],
+            'fontsizeinput' => ['toolbar'],
             'fontfamily' => ['toolbar', 'menubar'],
         ];
     }
