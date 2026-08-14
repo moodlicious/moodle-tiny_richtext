@@ -30,12 +30,12 @@ import {getSetup as getCommandSetup} from "./commands";
 import * as Configuration from "./configuration";
 
 /**
- * @type {() => (Promise<import('tinymce').TinyMCE>)}
+ * @type {() => (Promise<import('../../../../js/tinymce/tinymce').TinyMCE>)}
  */
 const getTinyMCE = _getTinyMCE;
 
 /**
- * @type {() => Promise<import('tinymce'.Plugin)>}
+ * @type {() => Promise<import('../../../../js/tinymce/tinymce'.Plugin)>}
  */
 const getPluginMetadata = _getPluginMetadata;
 
