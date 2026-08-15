@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+declare(strict_types=1);
+
 namespace tiny_richtext\local;
 
 /**
@@ -30,7 +32,7 @@ class utils {
      */
     public static function get_lines(string $value): array {
         $lines = array_map(trim(...), explode("\n", $value));
-        $lines = array_filter($lines, fn($line) => $line !== '');
+        $lines = array_filter($lines, fn($line): bool => $line !== '');
         return array_values($lines);
     }
 }

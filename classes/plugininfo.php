@@ -73,9 +73,9 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
             COLOURS
         );
 
-        $colourtransform = function (string $value) {
+        $colourtransform = function (string $value): array {
             $lines = utils::get_lines($value);
-            $values = array_map(fn($v) => explode(' ', $v, 2), $lines);
+            $values = array_map(fn(string $v): array => explode(' ', $v, 2), $lines);
             return array_values(array_merge(...$values));
         };
 
@@ -115,9 +115,9 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                         'config' => [
                             'defaultsetting' => "8pt\n10pt\n12pt\n14pt\n18pt\n24pt\n36pt",
                         ],
-                        'transform' => function (string $value) {
+                        'transform' => function (string $value): string {
                             $lines = utils::get_lines($value);
-                            return join(' ', $lines);
+                            return implode(' ', $lines);
                         },
                     ],
                 ],
@@ -130,7 +130,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                         'name' => 'font_size_input_default_unit',
                         'config' => [
                             'defaultsetting' => 'em',
-                            'choices' => fn() => ['pt', 'px', 'em', 'cm', 'mm'],
+                            'choices' => fn(): array => ['pt', 'px', 'em', 'cm', 'mm'],
                         ],
                     ],
                 ],
@@ -164,7 +164,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                                 SETTING
                             ),
                         ],
-                        'transform' => fn(string $value) => join('; ', array_map(trim(...), explode("\n", $value))),
+                        'transform' => fn(string $value): string => implode('; ', array_map(trim(...), explode("\n", $value))),
                     ],
                 ],
             ],
