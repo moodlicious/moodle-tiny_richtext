@@ -164,7 +164,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                                 SETTING
                             ),
                         ],
-                        'transform' => fn(string $value): string => implode('; ', array_map(trim(...), explode("\n", $value))),
+                        'transform' => fn(string $value): string => implode('; ', utils::get_lines($value)),
                     ],
                 ],
             ],
