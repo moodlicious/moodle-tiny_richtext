@@ -97,7 +97,7 @@ if ($hassiteconfig) {
                     ...$option['config'],
                 );
 
-                $setting && $settings->add($setting);
+                $settings->add($setting);
             }
         }
 

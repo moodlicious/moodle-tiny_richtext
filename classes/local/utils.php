@@ -31,6 +31,6 @@ class utils {
     public static function get_lines(string $value): array {
         $lines = array_map(trim(...), explode("\n", $value));
         $lines = array_filter($lines, fn($line) => $line !== '');
-        return $lines;
+        return array_values($lines);
     }
 }

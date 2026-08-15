@@ -216,7 +216,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         ];
 
         foreach ($plugins as $plugin => $plugindata) {
-            ['areas' => $areas, 'options' => $options] = $plugindata;
+            ['areas' => $areas, 'options' => $pluginoptions] = $plugindata;
             foreach ($areas as $area) {
                 $enabled = (bool) get_config($component, self::get_tiny_plugin_area_config_key($plugin, $area));
                 if (!$enabled) {
@@ -227,7 +227,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                 $enabledareas[$area][] = $plugin;
             }
 
-            foreach ($options as $option) {
+            foreach ($pluginoptions as $option) {
                 $value = get_config($component, self::get_tiny_option_config_key($option['name']));
                 if ($value === false || $value === '') {
                     continue;
