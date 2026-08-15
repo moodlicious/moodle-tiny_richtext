@@ -28,6 +28,11 @@ import {
 } from "editor_tiny/options";
 import {pluginName} from "./common";
 
+/**
+ * @param {import("tinymce").EditorOptions} instanceConfig
+ * @param {string[]} items
+ * @returns
+ */
 const getToolbarConfiguration = (instanceConfig, items) => {
     let toolbar = instanceConfig.toolbar;
     toolbar = addToolbarButtons(toolbar, "formatting", [...items]);
@@ -35,6 +40,11 @@ const getToolbarConfiguration = (instanceConfig, items) => {
     return toolbar;
 };
 
+/**
+ * @param {import("tinymce").EditorOptions} instanceConfig
+ * @param {string[]} items
+ * @returns
+ */
 const getMenuConfiguration = (instanceConfig, items) => {
     let menu = instanceConfig.menu;
     menu = addMenubarItem(menu, "format", [...items].join(" "), "codeformat");
@@ -42,12 +52,30 @@ const getMenuConfiguration = (instanceConfig, items) => {
     return menu;
 };
 
+/**
+ * @param {import("tinymce").EditorOptions} instanceConfig
+ * @param {object} options
+ * @returns
+ */
 export const configure = (instanceConfig, options) => {
     const pluginOptions = getInitialPluginConfiguration(options);
     const enabledAreas =
         pluginOptions[getPluginOptionName(pluginName, "enabledareas")];
     const enabledToolbars = enabledAreas.toolbar ?? [];
     const enabledMenubars = enabledAreas.menubar ?? [];
+
+    /**
+     * @type {Record<string, string>} tinyOptions
+     */
+    const tinyOptions =
+        pluginOptions[getPluginOptionName(pluginName, "tinyoptions")];
+
+    for (const optionName of Object.keys(tinyOptions)) {
+        if (optionName.startsWith("_")) {
+            continue;
+        }
+        instanceConfig[optionName] = tinyOptions[optionName];
+    }
 
     return {
         toolbar: getToolbarConfiguration(instanceConfig, enabledToolbars),

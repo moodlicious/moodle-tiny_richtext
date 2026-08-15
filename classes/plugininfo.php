@@ -24,6 +24,7 @@ use editor_tiny\plugin;
 use editor_tiny\plugin_with_buttons;
 use editor_tiny\plugin_with_configuration;
 use editor_tiny\plugin_with_menuitems;
+use tiny_richtext\local\utils;
 
 /**
  * Tiny Rich Text plugin for Moodle.
@@ -38,16 +39,139 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
 
     /**
      * Retrives list of tiny core plugins enabled by this plugin.
-     * @return array<string, ('toolbar'|'menubar')[]>
+     * @return array<string, array{
+     *     areas: ('toolbar'|'menubar')[],
+     *     options: array{name: string, type: 'area'|'choice', config: mixed[], transform?: callable}[]
+     * }>
+     * @link https://www.tiny.cloud/docs/tinymce/latest/user-formatting-options Available options and default values
      */
     public static function get_available_tiny_plugins(): array {
+        $defaultcolours = trim(
+            <<<COLOURS
+            #bfedd2 Light Green
+            #fbeeb8 Light Yellow
+            #f8cac6 Light Red
+            #eccafa Light Purple
+            #c2e0f4 Light Blue
+            #2dc26b Green
+            #f1c40f Yellow
+            #e03e2d Red
+            #b96ad9 Purple
+            #3598db Blue
+            #169179 Dark Turquoise
+            #e67e23 Orange
+            #ba372a Dark Red
+            #843fa1 Dark Purple
+            #236fa1 Dark Blue
+            #ecf0f1 Light Gray
+            #ced4d9 Medium Gray
+            #95a5a6 Gray
+            #7e8c8d Dark Gray
+            #34495e Navy Blue
+            #000000 Black
+            #ffffff White
+            COLOURS
+        );
+
+        $colourtransform = function (string $value) {
+            $lines = utils::get_lines($value);
+            $values = array_map(fn($v) => explode(' ', $v, 2), $lines);
+            return array_values(array_merge(...$values));
+        };
+
         return [
-            'forecolor' => ['toolbar', 'menubar'],
-            'backcolor' => ['toolbar', 'menubar'],
-            'fontsize' => ['toolbar', 'menubar'],
-            'fontsizeinput' => ['toolbar'],
-            'fontfamily' => ['toolbar', 'menubar'],
-            'charmap' => ['toolbar', 'menubar'],
+            'forecolor' => [
+                'areas' => ['toolbar', 'menubar'],
+                'options' => [
+                    [
+                        'type' => 'area',
+                        'name' => 'color_map_foreground',
+                        'config' => [
+                            'defaultsetting' => $defaultcolours,
+                        ],
+                        'transform' => $colourtransform,
+                    ],
+                ],
+            ],
+            'backcolor' => [
+                'areas' => ['toolbar', 'menubar'],
+                'options' => [
+                    [
+                        'type' => 'area',
+                        'name' => 'color_map_background',
+                        'config' => [
+                            'defaultsetting' => $defaultcolours,
+                        ],
+                        'transform' => $colourtransform,
+                    ],
+                ],
+            ],
+            'fontsize' => [
+                'areas' => ['toolbar', 'menubar'],
+                'options' => [
+                    [
+                        'type' => 'area',
+                        'name' => 'font_size_formats',
+                        'config' => [
+                            'defaultsetting' => "8pt\n10pt\n12pt\n14pt\n18pt\n24pt\n36pt",
+                        ],
+                        'transform' => function (string $value) {
+                            $lines = utils::get_lines($value);
+                            return join(' ', $lines);
+                        },
+                    ],
+                ],
+            ],
+            'fontsizeinput' => [
+                'areas' => ['toolbar'],
+                'options' => [
+                    [
+                        'type' => 'choice',
+                        'name' => 'font_size_input_default_unit',
+                        'config' => [
+                            'defaultsetting' => 'em',
+                            'choices' => fn() => ['pt', 'px', 'em', 'cm', 'mm'],
+                        ],
+                    ],
+                ],
+            ],
+            'fontfamily' => [
+                'areas' => ['toolbar', 'menubar'],
+                'options' => [
+                    [
+                        'type' => 'area',
+                        'name' => 'font_family_formats',
+                        'config' => [
+                            'defaultsetting' => trim(
+                                <<<SETTING
+                                Andale Mono=andale mono,times
+                                Arial=arial,helvetica,sans-serif
+                                Arial Black=arial black,avant garde
+                                Book Antiqua=book antiqua,palatino
+                                Comic Sans MS=comic sans ms,sans-serif
+                                Courier New=courier new,courier
+                                Georgia=georgia,palatino
+                                Helvetica=helvetica
+                                Impact=impact,chicago
+                                Symbol=symbol
+                                Tahoma=tahoma,arial,helvetica,sans-serif
+                                Terminal=terminal,monaco
+                                Times New Roman=times new roman,times
+                                Trebuchet MS=trebuchet ms,geneva
+                                Verdana=verdana,geneva
+                                Webdings=webdings
+                                Wingdings=wingdings,zapf dingbats
+                                SETTING
+                            ),
+                        ],
+                        'transform' => fn(string $value) => join('; ', array_map(trim(...), explode("\n", $value))),
+                    ],
+                ],
+            ],
+            'charmap' => [
+                'areas' => ['toolbar', 'menubar'],
+                'options' => [],
+            ],
         ];
     }
 
@@ -68,6 +192,13 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         return "enable_{$plugin}_{$area}";
     }
 
+    /**
+     * Returns the configuration key for a specific tiny option.
+     */
+    public static function get_tiny_option_config_key(string $option): string {
+        return "tiny_option_$option";
+    }
+
     #[\Override]
     public static function get_plugin_configuration_for_context(
         context $context,
@@ -78,10 +209,14 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         $component = self::COMPONENT_NAME;
         $plugins = self::get_available_tiny_plugins();
         $enabledareas = [
-            'none' => [],
+            '_' => [],
+        ];
+        $tinyoptions = [
+            '_' => [],
         ];
 
-        foreach ($plugins as $plugin => $areas) {
+        foreach ($plugins as $plugin => $plugindata) {
+            ['areas' => $areas, 'options' => $options] = $plugindata;
             foreach ($areas as $area) {
                 $enabled = (bool) get_config($component, self::get_tiny_plugin_area_config_key($plugin, $area));
                 if (!$enabled) {
@@ -91,10 +226,22 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                 $enabledareas[$area] ??= [];
                 $enabledareas[$area][] = $plugin;
             }
+
+            foreach ($options as $option) {
+                $value = get_config($component, self::get_tiny_option_config_key($option['name']));
+                if ($value === false || $value === '') {
+                    continue;
+                }
+                if (isset($option['transform'])) {
+                    $value = $option['transform']($value);
+                }
+                $tinyoptions[$option['name']] = $value;
+            }
         }
 
         return [
             'enabledareas' => $enabledareas,
+            'tinyoptions' => $tinyoptions,
         ];
     }
 }

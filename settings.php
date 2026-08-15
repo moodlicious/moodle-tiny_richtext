@@ -44,7 +44,8 @@ if ($hassiteconfig) {
 
         $plugins = plugininfo::get_available_tiny_plugins();
 
-        foreach ($plugins as $plugin => $areas) {
+        foreach ($plugins as $plugin => $plugindata) {
+            ['areas' => $areas, 'options' => $options] = $plugindata;
             $pluginstring = new lang_string("tiny:plugin:$plugin", $component);
             $settings->add(
                 new admin_setting_heading(
@@ -69,6 +70,52 @@ if ($hassiteconfig) {
                 );
                 $settings->add($setting);
             }
+
+            foreach ($options as $option) {
+                $configkey = plugininfo::get_tiny_option_config_key($option['name']);
+                $name = new lang_string("tiny:option:{$option['name']}", $component);
+                $description = new lang_string("tiny:option:{$option['name']}_desc", $component);
+                $common = [
+                    'name' => "$component/$configkey",
+                    'visiblename' => $name,
+                    'description' => $description,
+                ];
+
+                /** @var class-string<admin_setting> $settingclass */
+                $settingclass = match ($option['type']) {
+                    'choice' => admin_setting_configselect::class,
+                    'area' => admin_setting_configtextarea::class,
+                    default => null,
+                };
+
+                if ($settingclass === null) {
+                    continue;
+                }
+
+                $setting = new $settingclass(
+                    ...$common,
+                    ...$option['config'],
+                );
+
+                $setting && $settings->add($setting);
+            }
         }
+
+        $settings->add(new admin_setting_heading(
+            "$component/editor_playground",
+            new lang_string('settings:playground', $component),
+            new lang_string('settings:playground_desc', $component),
+        ));
+
+        $settings->add(new admin_setting_confightmleditor(
+            "$component/playground",
+            new lang_string('settings:playground', $component),
+            '',
+            <<<LOREM
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            Enim atque quas aliquid, aliquam corporis explicabo id eum rerum harum veritatis natus maxime?
+            Neque impedit corporis tempora repudiandae laudantium aliquid delectus?,
+            LOREM,
+        ));
     }
 }
