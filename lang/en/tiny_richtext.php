@@ -31,6 +31,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Rich Text';
 $string['privacy:metadata'] = 'Rich Text does not store any personal data';
+$string['richtext:use'] = 'Use TinyMCE rich text';
 $string['settings:playground'] = 'Playground';
 $string['settings:playground_desc'] = 'Test your editor configuration here. Changes do not reflect immediately, save changes to take effect';
 $string['settings:showplugininarea'] = 'Show {$a->plugin} in {$a->area}';
