@@ -9,7 +9,6 @@ The plugin has no buttons or UI of its own. It exposes six TinyMCE core formatti
 | Font size (predefined) | `fontsize` | Font size from a predefined list |
 | Font size (input) | `fontsizeinput` | Font size entered freely |
 | Font family | `fontfamily` | Font family of selected text |
-| Custom characters | `charmap` | Insert special characters |
 
 ## Settings
 

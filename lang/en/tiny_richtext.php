@@ -48,7 +48,6 @@ $string['tiny:option:font_size_formats_desc'] = '';
 $string['tiny:option:font_size_input_default_unit'] = 'The default font size unit';
 $string['tiny:option:font_size_input_default_unit_desc'] = '';
 $string['tiny:plugin:backcolor'] = 'Background Colour';
-$string['tiny:plugin:charmap'] = 'Custom Characters';
 $string['tiny:plugin:fontfamily'] = 'Font Family';
 $string['tiny:plugin:fontsize'] = 'Font Size (predefined)';
 $string['tiny:plugin:fontsizeinput'] = 'Font Size (input)';
