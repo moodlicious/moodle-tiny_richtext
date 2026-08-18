@@ -228,6 +228,11 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                 if ($value === false || $value === '') {
                     continue;
                 }
+                // Defaults are written to the config table at install time, so skip values that
+                // just match the default setting and let the editor use its own built-in defaults.
+                if ($value === ($option['config']['defaultsetting'] ?? null)) {
+                    continue;
+                }
                 if (isset($option['transform'])) {
                     $value = $option['transform']($value);
                 }
