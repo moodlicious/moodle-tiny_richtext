@@ -31,6 +31,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Rich Text';
 $string['privacy:metadata'] = 'Rich Text does not store any personal data';
+$string['richtext:use'] = 'Use TinyMCE rich text';
 $string['settings:playground'] = 'Playground';
 $string['settings:playground_desc'] = 'Test your editor configuration here. Changes do not reflect immediately, save changes to take effect';
 $string['settings:showplugininarea'] = 'Show {$a->plugin} in {$a->area}';
@@ -47,7 +48,6 @@ $string['tiny:option:font_size_formats_desc'] = '';
 $string['tiny:option:font_size_input_default_unit'] = 'The default font size unit';
 $string['tiny:option:font_size_input_default_unit_desc'] = '';
 $string['tiny:plugin:backcolor'] = 'Background Colour';
-$string['tiny:plugin:charmap'] = 'Custom Characters';
 $string['tiny:plugin:fontfamily'] = 'Font Family';
 $string['tiny:plugin:fontsize'] = 'Font Size (predefined)';
 $string['tiny:plugin:fontsizeinput'] = 'Font Size (input)';

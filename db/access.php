@@ -15,17 +15,22 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
+ * Plugin capabilities are defined here.
  *
  * @package     tiny_richtext
+ * @category    access
  * @copyright   2026 Felix Yeung
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'tiny_richtext';
-$plugin->release = '0.0.1';
-$plugin->version = 2026081900;
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->supported = [405, 502];
+$capabilities = [
+    'tiny/richtext:use' => [
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_MODULE,
+        'archetypes' => [
+            'user' => CAP_ALLOW,
+        ],
+    ],
+];

@@ -9,7 +9,6 @@ Adds TinyMCE core formatting controls:
 - `fontsize` - Font size (predefined)
 - `fontsizeinput` - Font size (input)
 - `fontfamily` - Font family
-- `charmap` - Custom characters
 
 Each control can be enabled in the toolbar and/or the Format menu on the plugin's settings page.
 

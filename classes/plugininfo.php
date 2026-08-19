@@ -129,7 +129,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                         'type' => 'choice',
                         'name' => 'font_size_input_default_unit',
                         'config' => [
-                            'defaultsetting' => 'em',
+                            'defaultsetting' => 'pt',
                             'choices' => fn(): array => ['pt', 'px', 'em', 'cm', 'mm'],
                         ],
                     ],
@@ -167,10 +167,6 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                         'transform' => fn(string $value): string => implode('; ', utils::get_lines($value)),
                     ],
                 ],
-            ],
-            'charmap' => [
-                'areas' => ['toolbar', 'menubar'],
-                'options' => [],
             ],
         ];
     }
@@ -230,6 +226,11 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
             foreach ($pluginoptions as $option) {
                 $value = get_config($component, self::get_tiny_option_config_key($option['name']));
                 if ($value === false || $value === '') {
+                    continue;
+                }
+                // Defaults are written to the config table at install time, so skip values that
+                // just match the default setting and let the editor use its own built-in defaults.
+                if ($value === ($option['config']['defaultsetting'] ?? null)) {
                     continue;
                 }
                 if (isset($option['transform'])) {
