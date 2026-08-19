@@ -1,0 +1,10 @@
+{
+    "name": "moodlicious/moodle-tiny_richtext",
+    "description": "Re-enables rich text editing capabilities that were not enabled by Moodle by default.",
+    "type": "moodle-tiny",
+    "require": {
+        "moodle/moodle": "^5.2",
+        "moodle/composer-installer": "*"
+    },
+    "license": "GPL-3.0-or-later"
+}
