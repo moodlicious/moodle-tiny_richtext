@@ -129,7 +129,7 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
                         'type' => 'choice',
                         'name' => 'font_size_input_default_unit',
                         'config' => [
-                            'defaultsetting' => 'em',
+                            'defaultsetting' => 'pt',
                             'choices' => fn(): array => ['pt', 'px', 'em', 'cm', 'mm'],
                         ],
                     ],
