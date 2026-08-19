@@ -42,7 +42,7 @@ final class plugininfo_test extends advanced_testcase {
      */
     public function test_get_available_tiny_plugins_keys(): void {
         $plugins = plugininfo::get_available_tiny_plugins();
-        $this->assertSame(['forecolor', 'backcolor', 'fontsize', 'fontsizeinput', 'fontfamily'], array_keys($plugins));
+        static::assertSame(['forecolor', 'backcolor', 'fontsize', 'fontsizeinput', 'fontfamily'], array_keys($plugins));
     }
 
     /**
@@ -53,13 +53,13 @@ final class plugininfo_test extends advanced_testcase {
 
         // Plugins with both toolbar and menubar.
         foreach (['forecolor', 'backcolor', 'fontsize', 'fontfamily'] as $plugin) {
-            $this->assertArrayHasKey('areas', $plugins[$plugin]);
-            $this->assertSame(['toolbar', 'menubar'], $plugins[$plugin]['areas']);
+            static::assertArrayHasKey('areas', $plugins[$plugin]);
+            static::assertSame(['toolbar', 'menubar'], $plugins[$plugin]['areas']);
         }
 
         // Verify that fontsizeinput only has toolbar.
-        $this->assertArrayHasKey('areas', $plugins['fontsizeinput']);
-        $this->assertSame(['toolbar'], $plugins['fontsizeinput']['areas']);
+        static::assertArrayHasKey('areas', $plugins['fontsizeinput']);
+        static::assertSame(['toolbar'], $plugins['fontsizeinput']['areas']);
     }
 
     /**
@@ -69,19 +69,19 @@ final class plugininfo_test extends advanced_testcase {
         $plugins = plugininfo::get_available_tiny_plugins();
 
         foreach ($plugins as $pluginname => $plugin) {
-            $this->assertArrayHasKey('options', $plugin);
-            $this->assertIsArray($plugin['options']);
+            static::assertArrayHasKey('options', $plugin);
+            static::assertIsArray($plugin['options']);
 
             foreach ($plugin['options'] as $option) {
-                $this->assertArrayHasKey('name', $option, "Option in $pluginname missing 'name'");
-                $this->assertArrayHasKey('type', $option, "Option in $pluginname missing 'type'");
-                $this->assertArrayHasKey('config', $option, "Option in $pluginname missing 'config'");
-                $this->assertArrayHasKey(
+                static::assertArrayHasKey('name', $option, "Option in $pluginname missing 'name'");
+                static::assertArrayHasKey('type', $option, "Option in $pluginname missing 'type'");
+                static::assertArrayHasKey('config', $option, "Option in $pluginname missing 'config'");
+                static::assertArrayHasKey(
                     'defaultsetting',
                     $option['config'],
                     "Option in $pluginname missing 'config.defaultsetting'",
                 );
-                $this->assertContains(
+                static::assertContains(
                     $option['type'],
                     ['area', 'choice'],
                     "Option in $pluginname has invalid type: {$option['type']}",
@@ -94,38 +94,38 @@ final class plugininfo_test extends advanced_testcase {
      * Test that get_available_buttons returns an empty array.
      */
     public function test_get_available_buttons_returns_empty(): void {
-        $this->assertSame([], plugininfo::get_available_buttons());
+        static::assertSame([], plugininfo::get_available_buttons());
     }
 
     /**
      * Test that get_available_menuitems returns an empty array.
      */
     public function test_get_available_menuitems_returns_empty(): void {
-        $this->assertSame([], plugininfo::get_available_menuitems());
+        static::assertSame([], plugininfo::get_available_menuitems());
     }
 
     /**
      * Test get_tiny_plugin_area_config_key format.
      */
     public function test_get_tiny_plugin_area_config_key_format(): void {
-        $this->assertSame('enable_forecolor_toolbar', plugininfo::get_tiny_plugin_area_config_key('forecolor', 'toolbar'));
-        $this->assertSame('enable_forecolor_menubar', plugininfo::get_tiny_plugin_area_config_key('forecolor', 'menubar'));
-        $this->assertSame('enable_backcolor_toolbar', plugininfo::get_tiny_plugin_area_config_key('backcolor', 'toolbar'));
-        $this->assertSame('enable_fontsizeinput_toolbar', plugininfo::get_tiny_plugin_area_config_key('fontsizeinput', 'toolbar'));
+        static::assertSame('enable_forecolor_toolbar', plugininfo::get_tiny_plugin_area_config_key('forecolor', 'toolbar'));
+        static::assertSame('enable_forecolor_menubar', plugininfo::get_tiny_plugin_area_config_key('forecolor', 'menubar'));
+        static::assertSame('enable_backcolor_toolbar', plugininfo::get_tiny_plugin_area_config_key('backcolor', 'toolbar'));
+        static::assertSame('enable_fontsizeinput_toolbar', plugininfo::get_tiny_plugin_area_config_key('fontsizeinput', 'toolbar'));
     }
 
     /**
      * Test get_tiny_option_config_key format.
      */
     public function test_get_tiny_option_config_key_format(): void {
-        $this->assertSame('tiny_option_color_map_foreground', plugininfo::get_tiny_option_config_key('color_map_foreground'));
-        $this->assertSame('tiny_option_color_map_background', plugininfo::get_tiny_option_config_key('color_map_background'));
-        $this->assertSame('tiny_option_font_size_formats', plugininfo::get_tiny_option_config_key('font_size_formats'));
-        $this->assertSame(
+        static::assertSame('tiny_option_color_map_foreground', plugininfo::get_tiny_option_config_key('color_map_foreground'));
+        static::assertSame('tiny_option_color_map_background', plugininfo::get_tiny_option_config_key('color_map_background'));
+        static::assertSame('tiny_option_font_size_formats', plugininfo::get_tiny_option_config_key('font_size_formats'));
+        static::assertSame(
             'tiny_option_font_size_input_default_unit',
             plugininfo::get_tiny_option_config_key('font_size_input_default_unit'),
         );
-        $this->assertSame('tiny_option_font_family_formats', plugininfo::get_tiny_option_config_key('font_family_formats'));
+        static::assertSame('tiny_option_font_family_formats', plugininfo::get_tiny_option_config_key('font_family_formats'));
     }
 
     /**
@@ -135,10 +135,10 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayHasKey('enabledareas', $result);
-        $this->assertArrayHasKey('tinyoptions', $result);
-        $this->assertSame(['_' => []], $result['enabledareas']);
-        $this->assertSame(['_' => []], $result['tinyoptions']);
+        static::assertArrayHasKey('enabledareas', $result);
+        static::assertArrayHasKey('tinyoptions', $result);
+        static::assertSame(['_' => []], $result['enabledareas']);
+        static::assertSame(['_' => []], $result['tinyoptions']);
     }
 
     /**
@@ -150,10 +150,10 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayHasKey('toolbar', $result['enabledareas']);
-        $this->assertContains('forecolor', $result['enabledareas']['toolbar']);
+        static::assertArrayHasKey('toolbar', $result['enabledareas']);
+        static::assertContains('forecolor', $result['enabledareas']['toolbar']);
         // Menubar should not be enabled for forecolor.
-        $this->assertArrayNotHasKey('menubar', $result['enabledareas']);
+        static::assertArrayNotHasKey('menubar', $result['enabledareas']);
     }
 
     /**
@@ -165,8 +165,8 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayHasKey('menubar', $result['enabledareas']);
-        $this->assertContains('fontfamily', $result['enabledareas']['menubar']);
+        static::assertArrayHasKey('menubar', $result['enabledareas']);
+        static::assertContains('fontfamily', $result['enabledareas']['menubar']);
     }
 
     /**
@@ -179,8 +179,8 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertContains('backcolor', $result['enabledareas']['toolbar']);
-        $this->assertContains('backcolor', $result['enabledareas']['menubar']);
+        static::assertContains('backcolor', $result['enabledareas']['toolbar']);
+        static::assertContains('backcolor', $result['enabledareas']['menubar']);
     }
 
     /**
@@ -190,9 +190,9 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayNotHasKey('color_map_foreground', $result['tinyoptions']);
-        $this->assertArrayNotHasKey('font_size_formats', $result['tinyoptions']);
-        $this->assertArrayNotHasKey('font_family_formats', $result['tinyoptions']);
+        static::assertArrayNotHasKey('color_map_foreground', $result['tinyoptions']);
+        static::assertArrayNotHasKey('font_size_formats', $result['tinyoptions']);
+        static::assertArrayNotHasKey('font_family_formats', $result['tinyoptions']);
     }
 
     /**
@@ -204,8 +204,8 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayHasKey('color_map_foreground', $result['tinyoptions']);
-        $this->assertSame(['#ff0000', 'Red', '#00ff00', 'Green'], $result['tinyoptions']['color_map_foreground']);
+        static::assertArrayHasKey('color_map_foreground', $result['tinyoptions']);
+        static::assertSame(['#ff0000', 'Red', '#00ff00', 'Green'], $result['tinyoptions']['color_map_foreground']);
     }
 
     /**
@@ -217,8 +217,8 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayHasKey('font_size_formats', $result['tinyoptions']);
-        $this->assertSame('8pt 10pt', $result['tinyoptions']['font_size_formats']);
+        static::assertArrayHasKey('font_size_formats', $result['tinyoptions']);
+        static::assertSame('8pt 10pt', $result['tinyoptions']['font_size_formats']);
     }
 
     /**
@@ -234,8 +234,8 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayHasKey('font_family_formats', $result['tinyoptions']);
-        $this->assertSame(
+        static::assertArrayHasKey('font_family_formats', $result['tinyoptions']);
+        static::assertSame(
             'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier',
             $result['tinyoptions']['font_family_formats'],
         );
@@ -250,8 +250,8 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayHasKey('font_size_input_default_unit', $result['tinyoptions']);
-        $this->assertSame('px', $result['tinyoptions']['font_size_input_default_unit']);
+        static::assertArrayHasKey('font_size_input_default_unit', $result['tinyoptions']);
+        static::assertSame('px', $result['tinyoptions']['font_size_input_default_unit']);
     }
 
     /**
@@ -267,11 +267,11 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertContains('forecolor', $result['enabledareas']['toolbar']);
-        $this->assertContains('backcolor', $result['enabledareas']['toolbar']);
-        $this->assertContains('fontsize', $result['enabledareas']['toolbar']);
-        $this->assertContains('fontsizeinput', $result['enabledareas']['toolbar']);
-        $this->assertContains('fontfamily', $result['enabledareas']['toolbar']);
+        static::assertContains('forecolor', $result['enabledareas']['toolbar']);
+        static::assertContains('backcolor', $result['enabledareas']['toolbar']);
+        static::assertContains('fontsize', $result['enabledareas']['toolbar']);
+        static::assertContains('fontsizeinput', $result['enabledareas']['toolbar']);
+        static::assertContains('fontfamily', $result['enabledareas']['toolbar']);
     }
 
     /**
@@ -283,6 +283,6 @@ final class plugininfo_test extends advanced_testcase {
         $context = \context_system::instance();
         $result = plugininfo::get_plugin_configuration_for_context($context, [], []);
 
-        $this->assertArrayNotHasKey('color_map_foreground', $result['tinyoptions']);
+        static::assertArrayNotHasKey('color_map_foreground', $result['tinyoptions']);
     }
 }
